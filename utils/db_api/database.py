@@ -1,13 +1,31 @@
 import datetime
 from asgiref.sync import sync_to_async
-from apps.main.models import StudyGroup
+from apps.main.models import StudyGroup, Teacher
 
 
 @sync_to_async
-async def get_group(name):
+def get_group(name):
     try:
         group = StudyGroup.objects.filter(name=name).first()
         return group
+    except:
+        return None
+
+
+@sync_to_async
+def get_teachers(filial):
+    try:
+        teachers = Teacher.objects.filter(filial=filial).all()
+        return teachers
+    except:
+        return None
+
+
+@sync_to_async
+def get_teacher_data(t_id):
+    try:
+        teacher = Teacher.objects.filter(id=t_id).first()
+        return teacher
     except:
         return None
 

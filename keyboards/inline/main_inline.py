@@ -14,6 +14,7 @@ async def sale_keyboard():
     return markup
 
 
+
 async def check_user_membership():
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -52,5 +53,17 @@ async def month_keyboard(date):
     for i in date:
         inline_keyboard.append([InlineKeyboardButton(text=f"{Moths[i]}", callback_data=i)])
     inline_keyboard.append([InlineKeyboardButton(text="🔙 Orqaga", callback_data=f"back_menu")])
+    markup = InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
+    return markup
+
+
+async def teachers_keyboard(objects):
+    inline_keyboard = []
+    for obj in objects:
+        inline_keyboard.append([InlineKeyboardButton(text=f"{obj.name}", callback_data=obj.id)])
+    inline_keyboard.append([
+        InlineKeyboardButton(text="⬅️ Orqaga", callback_data=f"back"),
+        InlineKeyboardButton(text="➡️ Oldinga", callback_data=f"next"),
+    ])
     markup = InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
     return markup

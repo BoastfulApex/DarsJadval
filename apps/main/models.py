@@ -38,4 +38,6 @@ class Teacher(models.Model):
 
     name = models.CharField(max_length=1000, null=True, blank=True)
     zoom_link = models.URLField(max_length=1000, null=True, blank=True)
-    filial = models.CharField(max_length=100, choices=FILIAL, null=True)
+    filial = models.CharField(max_length=1000, choices=FILIAL, null=True)
+    description = models.TextField(max_length=10000, null=True, blank=True)
+

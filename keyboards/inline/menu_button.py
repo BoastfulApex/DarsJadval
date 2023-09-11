@@ -37,6 +37,15 @@ async def group_keyboard(filial):
     return keyboard
 
 
+async def get_teachers_or_back():
+    keyboard = ReplyKeyboardMarkup(row_width=1)
+    key = KeyboardButton(text=f"👨‍🏫 O'qituvchilar ro'yxatiga o'tish")
+    back_to_key = KeyboardButton(text=f"⬅️ Orqaga")
+    keyboard.add(key, back_to_key)
+    keyboard.resize_keyboard = True
+    return keyboard
+
+
 async def phone_keyboard():
     keyboard = ReplyKeyboardMarkup()
     key1 = KeyboardButton(text=f"📞 Raqamni ulashish", request_contact=True)
