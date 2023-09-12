@@ -31,7 +31,7 @@ class TeacherForm(forms.ModelForm):
 
 
 class TeacherFileForm(forms.Form):
-    file = forms.ImageField(
+    file = forms.FileField(
       widget=forms.FileInput()
     )
 

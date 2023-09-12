@@ -9,6 +9,7 @@ from apps.main.models import *
 from apps.main.forms import *
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+import pandas as pd
 
 
 @login_required(login_url="/login/")
@@ -96,9 +97,26 @@ class TeacherDelete(DeleteView):
 
 def teachers_file_create(request):
     if request.method == 'POST':
-        form = TeacherFileForm(request.POST)
+        form = TeacherFileForm(request.POST, request.FILES)
         if form.is_valid():
-            pass
+            uploaded_file = request.FILES['file']
+            print(uploaded_file)
+            with open('temp.xls', 'wb') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+            df = pd.read_excel('temp.xls')
+            for i in df.index:
+                name = df['Ismi'][i]
+                zoom = df['Zoom Link'][i]
+                desc = df['Izoh'][i]
+                teacher = Teacher.objects.create(
+                    name=name,
+                    zoom_link=zoom,
+                    description=desc,
+                    filial=request.user.filial
+                )
+                teacher.save()
+            return redirect('home-teachers')
     else:
         form = TeacherFileForm()
 
