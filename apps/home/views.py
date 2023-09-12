@@ -51,7 +51,8 @@ def teachers(request):
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj,
-        'segment': 'teachers'
+        'segment': 'teachers',
+        'filial': request.user.filial
     }
     return render(request, 'home/teachers.html', context)
 
@@ -73,6 +74,7 @@ def teachers_create(request):
                   {'form': form, 'segment': "teachers", 'filial': request.user.filial})
 
 
+@login_required(login_url="/login/")
 def teacher_detail(request, pk):
     teacher = Teacher.objects.get(id=pk)
 
@@ -100,7 +102,6 @@ def teachers_file_create(request):
         form = TeacherFileForm(request.POST, request.FILES)
         if form.is_valid():
             uploaded_file = request.FILES['file']
-            print(uploaded_file)
             with open('temp.xls', 'wb') as destination:
                 for chunk in uploaded_file.chunks():
                     destination.write(chunk)
@@ -136,6 +137,47 @@ def study_groups(request):
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj,
-        'segment': 'study_group'
+        'segment': 'groups'
     }
-    return render(request, 'home/teachers.html', context)
+    return render(request, 'home/study_groups.html', context)
+
+
+@login_required(login_url="/login/")
+def group_create(request):
+    if request.method == 'POST':
+        form = StudyGroupForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save()
+            instance.filial = request.user.filial
+            instance.save()
+            return redirect('home-groups')
+    else:
+        form = StudyGroupForm()
+
+    return render(request,
+                  'home/group_create.html',
+                  {'form': form, 'segment': "groups", 'filial': request.user.filial})
+
+
+@login_required(login_url="/login/")
+def group_detail(request, pk):
+    group = StudyGroup.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = StudyGroupForm(request.POST, request.FILES, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('home-groups')
+    else:
+        form = StudyGroupForm(instance=group)
+
+    return render(request,
+                  'home/group_detail.html',
+                  {'form': form, 'segment': 'groups', 'group': group, 'filial': request.user.filial})
+
+
+class StudyGroupDelete(DeleteView):
+    model = StudyGroup
+    fields = '__all__'
+    success_url = reverse_lazy('home-groups')
+

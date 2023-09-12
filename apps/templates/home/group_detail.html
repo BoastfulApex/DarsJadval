@@ -1,9 +1,9 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} Guruhlar {% endblock %}
 
 <!-- Element injected in the BODY element -->
-{% block body_class %} dashboard {% endblock body_class %}
+{% block body_class %} Guruhlar {% endblock body_class %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
@@ -13,62 +13,61 @@
 {% endblock stylesheets %}
 
 {% block content %}
-
-<main class="content">
-    <div class="container-fluid p-0">
-
-        <h1 class="h3 mb-3"><strong>{{ filial_name }} </strong></h1>
-
-        <div class="row">
-            <div class="col-xl-12 col-xxl-12 d-flex">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">O'qituvchilar</h5>
-                                        </div>
-{#                                        <div class="col-auto">#}
-{#                                            <div class="stat text-primary">#}
-{#                                                <a href="{% url 'cashback_update' cashback.id %}"><i#}
-{#                                                        class="align-middle" data-feather="edit-3"></i></a>#}
-{#                                            </div>#}
-{#                                        </div>#}
-
-                                    </div>
-                                    <h1 class="mt-1 mb-3">{{ teachers_count }}</h1>
-                                    <div class="stat text-primary">
-                                        <a href="{% url 'home-teachers' %}"><i class="align-middle" data-feather="list"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">O'quv guruhlari</h5>
-                                        </div>
-
-                                    </div>
-                                    <h1 class="mt-1 mb-3">{{ study_groups_count }}</h1>
-                                    <div class="stat text-primary">
-                                        <a href="{% url 'home-groups' %}"><i class="align-middle" data-feather="list"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Guruhni tahrirlash</h1>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</main>
-{% endblock content %}
+            </div><!-- /.container-fluid -->
+        </section>
 
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Guruhlar</h3>
+                        </div>
+                        <div class="card-body">
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="inputName">Guruh Nomi</label>
+                                    {{ form.name }}
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="inputName">Guruh xaftalik dars jadvali</label>
+                                    <a href="{{group.PhotoURL}}">{{group.weekly_schedule}}</a>
+                                    <br>
+                                    {{ form.weekly_schedule }}
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="submit" class="btn btn-success float-right" value="Saqlash">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div><!-- /.card -->
+            </div>
+            <!-- /.card -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock content %}
 {% block javascripts %}
     <script src="{% static 'js/app.js' %}"></script>
 
