@@ -7,7 +7,7 @@ class LoginForm(forms.Form):
             attrs={
                 "placeholder": "Username",
                 "class": "form-control form-control-lg",
-                "type": "number"
+                "type": "text"
             }
         ))
     password = forms.CharField(

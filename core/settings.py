@@ -72,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+AUTH_USER_MODEL = 'authentication.User'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DB_ENGINE   = os.getenv('DB_ENGINE'   , None)

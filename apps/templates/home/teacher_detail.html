@@ -1,58 +1,76 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block title %} Bildirishnomalar {% endblock %}
+{% block title %} O'qituvchilar {% endblock %}
 
 <!-- Element injected in the BODY element -->
-{% block body_class %} dashboard {% endblock body_class %} 
+{% block body_class %} O'qituvchilar {% endblock body_class %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
   <link href="{% static 'css/app.css' %}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
 {% endblock stylesheets %}
 
 {% block content %}
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>O'qituvchi yangilash</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-			<main class="content">
-				<div class="container-fluid p-0">
-					<div class="row">
-						<div class="col-12 col-lg-12 col-xxl-12 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Bildirishnomalar ro'yxati</h5>
-								</div>
-								<table class="table table-hover my-0">
-									<thead>
-										<tr>
-											<th>Nomi</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-									{% for notification in notifications %}
-										<tr>
-											<td class="d-none d-xl-table-cell">{{ category.name }}</td>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">O'qituvchilar</h3>
+            </div>
+            <div class="card-body">
+            <form role="form" method="post" action="" enctype="multipart/form-data">
 
-											<td class="d-none d-md-table-cell">
+                {% csrf_token %}
 
-												<div class="col-auto">
-													<div class="stat text-primary">
-														<a href="{% url 'notifications_update' notification.id %}"><i class="align-middle" data-feather="edit-3"></i></a>
-													</div>
-												</div>
-											</td>
-										</tr>
-									{% endfor %}
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
+                <div class="form-group">
+                  <label for="inputName">O'qituvchi Nomi</label>
+                  {{ form.name}}
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="inputName">O'qituvchi Zoom Linki</label>
+                {{ form.zoom_link }}
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="inputName">O'qituvchi izohi</label>
+                {{ form.description }}
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-12">
+                  <input type="submit" class="btn btn-success float-right" value="Saqlash">
                 </div>
-            </main>
-{% endblock content %}
-
+              </div>
+            </form>
+            </div>
+          </div>
+            <!-- /.card-body -->
+        </div><!-- /.card -->
+      </div>
+          <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ {% endblock content %}
 {% block javascripts %}
 	<script src="{% static 'js/app.js' %}"></script>
 

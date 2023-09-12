@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} O'qituvchilar ro'yxati {% endblock %}
 
 <!-- Element injected in the BODY element -->
 {% block body_class %} dashboard {% endblock body_class %}
@@ -14,59 +14,87 @@
 
 {% block content %}
 
-<main class="content">
-    <div class="container-fluid p-0">
+    <main class="content">
+        <div class="container-fluid p-0">
 
-        <h1 class="h3 mb-3"><strong>{{ filial_name }} </strong></h1>
+            <form class="input-group mb-4" method="get">
+                <input class="form-control" type="text" name="q" value="{{ search_query }}">
+                <button class="input-group-text btn btn-primary" type="submit">Izlash</button>
+            </form>
 
-        <div class="row">
-            <div class="col-xl-12 col-xxl-12 d-flex">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">O'qituvchilar</h5>
-                                        </div>
-{#                                        <div class="col-auto">#}
-{#                                            <div class="stat text-primary">#}
-{#                                                <a href="{% url 'cashback_update' cashback.id %}"><i#}
-{#                                                        class="align-middle" data-feather="edit-3"></i></a>#}
-{#                                            </div>#}
-{#                                        </div>#}
+            <div class="row">
+                <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
 
-                                    </div>
-                                    <h1 class="mt-1 mb-3">{{ teachers_count }}</h1>
-                                    <div class="stat text-primary">
-                                        <a href="{% url 'home-teachers' %}"><i class="align-middle" data-feather="list"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            <h5 class="card-title mb-0">O'qituvchilar ro'yxati</h5>
+                            <h5 class="card-title mb-0">{{ search_query }}</h5>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">O'quv guruhlari</h5>
+                        <table class="table table-hover my-0">
+                            <thead>
+                            <tr>
+                                <th>Ismi</th>
+                                <th class="d-none d-xl-table-cell"></th>
+                                <th class="d-none d-xl-table-cell"></th>
+                                <th></th>
+                                <th class="d-none d-md-table-cell"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in page_obj %}
+                                <tr>
+                                    <td class="d-none d-xl-table-cell">{{ user.name }}</td>
+                                    <td></td>
+                                    <td class="d-none d-xl-table-cell"></td>
+                                    <td><span class="badge bg-primary"></span></td>
+                                    <td class="d-none d-md-table-cell">
+                                        <div class="col-auto d-flex">
+                                            <div class="stat text-primary">
+                                                <a href="{% url 'home-teachers-detail' user.id %}"><i class="align-middle"
+                                                                                             data-feather="edit-3"></i></a>
+                                            </div>
+                                            <div class="stat text-warning d-flex">
+                                                <a href="{% url 'home-teachers-delete' user.id %}" class="text-danger"><i
+                                                        class="align-middle" data-feather="alert-circle"></i></a>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <h1 class="mt-1 mb-3">{{ study_groups_count }}</h1>
-                                    <div class="stat text-primary">
-                                        <a href=""><i class="align-middle" data-feather="list"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+{#                            <div style="justify-content: space-between !important;">#}
+                                <a class="btn btn-outline-success text-right" href="{% url 'home-teachers-create' %}">
+                                    <i class="fas fa-plus"></i>
+                                    Qo'shish
+                                </a>
+{#                                <a class="btn btn-outline-primary text-right" href="{% url 'home-teachers-file-create' %}">#}
+{#                                    <i class="fas fa-plus"></i>#}
+{#                                    Fayl orqali qo'shish#}
+{#                                </a>#}
+{#                            </div>#}
+                        </table>
                     </div>
                 </div>
             </div>
+            <div class="pagination">
+						<span class="step-links">
+							{% if page_obj.has_previous %}
+                                <a href="?q={{ search_query }}&page=1">&laquo; Boshiga</a>
+                                <a href="?q={{ search_query }}&page={{ page_obj.previous_page_number }}">&lsaquo; ortga</a>
+                            {% endif %}
+
+                            <span class="current-page">
+								{{ page_obj.number }} | {{ page_obj.paginator.num_pages }}
+							</span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?q={{ search_query }}&page={{ page_obj.next_page_number }}">keyingi &rsaquo;</a>
+                                <a href="?q={{ search_query }}&page={{ page_obj.paginator.num_pages }}">Oxirgi &raquo;</a>
+                            {% endif %}
+						</span>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 {% endblock content %}
 
 {% block javascripts %}

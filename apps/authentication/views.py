@@ -20,9 +20,9 @@ def login_view(request):
 
     if request.method == "POST":
         if form.is_valid():
-            phone = form.cleaned_data.get("username")
+            username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
-            user = authenticate(phone=phone, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect("/")

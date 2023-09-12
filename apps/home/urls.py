@@ -1,25 +1,12 @@
-# from django.urls import path
-# from apps.home import views
-#
-# urlpatterns = [
-#
-#     path('', views.index, name='home'),
-#     path('users/', views.users_view, name='users'),
-#     path('categories/', views.categories, name='home_categories'),
-#     path('categories/<int:pk>', views.category_detail, name='category_update'),
-#     path('subcategories/', views.sub_categories, name='home_subcategories'),
-#     path('subcategories/<int:pk>', views.subcategory_detail, name='subcategory_update'),
-#     path('manufacturers/', views.manufacturers, name='home_manufacturers'),
-#     path('manufacturers/<int:pk>', views.manufacturer_detail, name='manufacturer_update'),
-#     path('cashback/<int:pk>', views.cashback_detail, name='cashback_update'),
-#     path('products/', views.products, name='home_products'),
-#     path('products/<int:pk>', views.product_detail, name='product_update'),
-#     path('cashbacks_by_cashback/<int:pk>', views.user_cashback_by_cashback, name='cashbacks_by_cashback'),
-#     path('notifications/', views.notifications_list, name='home_notifications'),
-#     path('notification_create/', views.notification_create, name='notifications_create'),
-#     path('notification/<int:pk>/', views.notification_detail, name='notifications_detail'),
-#     path('notification_delete/<int:pk>/', views.NotificationDelete.as_view(), name='notifications_delete'),
-#     path('sales/', views.sales, name='home_sales'),
-#     path('sales_create/', views.sale_create, name='sale_create'),
-#
-# ]
+from django.urls import path
+from apps.home import views
+
+urlpatterns = [
+
+    path('', views.index, name='home'),
+    path('teachers/', views.teachers, name='home-teachers'),
+    path('teachers_create/', views.teachers_create, name='home-teachers-create'),
+    path('teachers_file_create/', views.teachers_file_create, name='home-teachers-file-create'),
+    path('teachers_detail/<int:pk>', views.teacher_detail, name='home-teachers-detail'),
+    path('teachers_delete/<int:pk>', views.TeacherDelete.as_view(), name='home-teachers-delete'),
+]

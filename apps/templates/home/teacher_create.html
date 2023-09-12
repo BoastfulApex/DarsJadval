@@ -1,60 +1,76 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block title %} Keshbeklar {% endblock %}
+{% block title %} O'qituvchilar {% endblock %}
 
 <!-- Element injected in the BODY element -->
-{% block body_class %} Keshbeklar {% endblock body_class %}
+{% block body_class %} O'qituvchilar {% endblock body_class %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-<link href="{% static 'css/app.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
+  <link href="{% static 'css/app.css' %}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
 {% endblock stylesheets %}
 
 {% block content %}
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>O'qituvchi yaratish</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-			<main class="content">
-				<div class="container-fluid p-0">
-					<div class="card-body">
-						<form role="form" method="post" action="" enctype="multipart/form-data">
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">O'qituvchilar</h3>
+            </div>
+            <div class="card-body">
+            <form role="form" method="post" action="" enctype="multipart/form-data">
 
-							{% csrf_token %}
+                {% csrf_token %}
 
-							<div class="form-group">
-							  	<label for="inputName">Keshbek Nomi</label>
-								{{ form.name }}
-							</div>
-							<br>
-							<div class="form-group">
-								<label > Keshbek muddati</label>
-								{{ form.period }}
-							</div>
-							<br>
-							<div class="form-group">
-								<label > Keshbek summasi</label><br>
-								{{ form.summa }}
-							</div>
-							<br>
-							<div class="form-group">
-								<label > Keshbek foizi </label>
-								{{ form.persent }}
-								<br>
-							</div>
-
-							<br>
-							<br>
-							<div class="row">
-								<div class="col-12">
-									<input type="submit" class="btn btn-success float-right" value="Saqlash">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-            </main>
-{% endblock content %}
-
+                <div class="form-group">
+                  <label for="inputName">O'qituvchi Nomi</label>
+                  {{ form.name}}
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="inputName">O'qituvchi Zoom Linki</label>
+                {{ form.zoom_link }}
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="inputName">O'qituvchi izohi</label>
+                {{ form.description }}
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-12">
+                  <input type="submit" class="btn btn-success float-right" value="Qo'shish">
+                </div>
+              </div>
+            </form>
+            </div>
+          </div>
+            <!-- /.card-body -->
+        </div><!-- /.card -->
+      </div>
+          <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ {% endblock content %}
 {% block javascripts %}
 	<script src="{% static 'js/app.js' %}"></script>
 
